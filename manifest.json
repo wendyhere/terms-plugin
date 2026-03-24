@@ -1,0 +1,8 @@
+{
+  "name": "Terminology",
+  "id": "figma-terms-plugin-dev",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html",
+  "editorType": ["figma"]
+}

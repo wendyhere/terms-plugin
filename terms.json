@@ -1,0 +1,252 @@
+[
+  {
+    "term": "Account",
+    "definition": "A financial account held by a member within the product.",
+    "usage": "Use when referring to a member's primary financial account. Capitalize when referring to a specific account type (e.g., Checking Account).",
+    "context": ["Navigation", "Account", "Onboarding"],
+    "variants": ["accounts"],
+    "dont": ["profile", "wallet"],
+    "caution": ["portfolio"],
+    "notes": "Distinguish from 'profile', which refers to personal settings, not financial holdings."
+  },
+  {
+    "term": "Balance",
+    "definition": "The current amount of funds available in an account.",
+    "usage": "Use 'available balance' when referring to funds immediately accessible. Use 'current balance' for the total including pending transactions.",
+    "context": ["Account", "Feedback"],
+    "variants": ["balances"],
+    "dont": ["funds available", "money"],
+    "caution": ["available funds"],
+    "notes": "Always clarify whether the balance shown is available or current to avoid member confusion."
+  },
+  {
+    "term": "Transfer",
+    "definition": "The movement of funds between two accounts.",
+    "usage": "Use for moving money between accounts owned by the same member or to another member's account.",
+    "context": ["Actions", "Navigation"],
+    "variants": ["transfers", "transfer funds"],
+    "dont": ["move money", "send funds"],
+    "caution": ["payment", "send"],
+    "notes": "Distinguish from 'payment', which implies sending money to an external payee."
+  },
+  {
+    "term": "Deposit",
+    "definition": "The addition of funds into an account.",
+    "usage": "Use when a member adds money to their account via check, direct deposit, or external transfer.",
+    "context": ["Actions", "Account"],
+    "variants": ["deposits", "depositing"],
+    "dont": ["add money", "top up"],
+    "caution": ["credit"],
+    "notes": "'Credit' is acceptable in formal transaction records but avoid in UI copy."
+  },
+  {
+    "term": "Withdrawal",
+    "definition": "The removal of funds from an account.",
+    "usage": "Use when a member removes money from their account via ATM, transfer, or payment.",
+    "context": ["Actions", "Account"],
+    "variants": ["withdrawals", "withdraw"],
+    "dont": ["take out money", "pull funds"],
+    "caution": ["debit"],
+    "notes": "'Debit' is acceptable in formal transaction records but avoid in conversational UI copy."
+  },
+  {
+    "term": "Transaction",
+    "definition": "A record of a completed or pending financial activity on an account.",
+    "usage": "Use when referring to individual entries in account history, including purchases, transfers, deposits, and withdrawals.",
+    "context": ["Account", "Feedback"],
+    "variants": ["transactions"],
+    "dont": ["activity", "event"],
+    "caution": ["payment", "charge"],
+    "notes": "Use 'charge' only when the context is specifically a merchant purchase."
+  },
+  {
+    "term": "Statement",
+    "definition": "A periodic summary of account activity and balances.",
+    "usage": "Use when referring to monthly or quarterly account summaries available for download or review.",
+    "context": ["Account", "Navigation"],
+    "variants": ["statements", "account statement"],
+    "dont": ["report", "summary"],
+    "caution": [],
+    "notes": "Statements are typically regulatory documents; use the exact term in legal and compliance contexts."
+  },
+  {
+    "term": "Beneficiary",
+    "definition": "A person or entity designated to receive funds from an account or policy.",
+    "usage": "Use in contexts involving designated recipients for transfers, inheritance, or insurance payouts.",
+    "context": ["Account", "Legal"],
+    "variants": ["beneficiaries"],
+    "dont": ["recipient", "payee"],
+    "caution": ["contact"],
+    "notes": "Legal term — use exactly as written in regulatory and compliance contexts. 'Payee' is acceptable in payment-specific flows."
+  },
+  {
+    "term": "Two-step verification",
+    "definition": "A security process that requires a second form of identity confirmation in addition to a password.",
+    "usage": "Use in product UI and onboarding flows. Preferred over technical acronyms for general audiences.",
+    "context": ["Account", "Onboarding", "System"],
+    "variants": ["two-step verification"],
+    "dont": ["2FA", "MFA", "multi-factor authentication"],
+    "caution": ["two-factor authentication"],
+    "notes": "'Two-factor authentication' is acceptable in security-specific documentation. Avoid acronyms in member-facing UI copy."
+  },
+  {
+    "term": "Dashboard",
+    "definition": "The main overview screen displaying account summaries, balances, and recent activity.",
+    "usage": "Use when referring to the primary landing screen after sign-in.",
+    "context": ["Navigation"],
+    "variants": [],
+    "dont": ["home screen", "overview page", "landing page"],
+    "caution": ["home"],
+    "notes": "'Home' is acceptable as a navigation label only. Use 'Dashboard' in descriptive copy and onboarding."
+  },
+  {
+    "term": "Portfolio",
+    "definition": "A member's collection of investments, including stocks, bonds, and other assets.",
+    "usage": "Use exclusively in investment product contexts. Do not use as a synonym for 'account' in general banking flows.",
+    "context": ["Account", "Navigation"],
+    "variants": ["portfolios"],
+    "dont": ["account", "holdings summary"],
+    "caution": ["holdings"],
+    "notes": "'Holdings' is acceptable as a secondary label within a portfolio view."
+  },
+  {
+    "term": "Payment",
+    "definition": "The transfer of funds to an external payee or service provider.",
+    "usage": "Use when a member sends money to a person or business outside of their own accounts.",
+    "context": ["Actions", "Navigation"],
+    "variants": ["payments", "pay"],
+    "dont": ["send money", "wire", "remittance"],
+    "caution": ["transfer"],
+    "notes": "Use 'wire transfer' only in international or high-value payment contexts where the term is legally required."
+  },
+  {
+    "term": "Scheduled payment",
+    "definition": "A payment set to process on a future date or on a recurring basis.",
+    "usage": "Use when a member has set up a future or repeating payment.",
+    "context": ["Actions", "Account"],
+    "variants": ["scheduled payments", "recurring payment", "automatic payment"],
+    "dont": ["autopay", "auto-payment", "standing order"],
+    "caution": ["recurring"],
+    "notes": "'Recurring payment' is acceptable as a modifier (e.g., 'set up a recurring payment'), but 'scheduled payment' is the primary term."
+  },
+  {
+    "term": "Spending limit",
+    "definition": "The maximum amount a member is permitted to spend or transfer within a defined period.",
+    "usage": "Use when referring to transaction caps set by the product or customized by the member.",
+    "context": ["Account", "System"],
+    "variants": ["spending limits", "transaction limit"],
+    "dont": ["cap", "restriction", "ceiling"],
+    "caution": ["limit"],
+    "notes": "When space is constrained, 'limit' alone is acceptable as a label. Use the full term in body copy and tooltips."
+  },
+  {
+    "term": "Verify your identity",
+    "definition": "A prompt asking a member to confirm who they are through an identity check process.",
+    "usage": "Use as the primary CTA or heading for identity verification flows, including KYC steps.",
+    "context": ["Onboarding", "Account", "Actions"],
+    "variants": ["identity verification", "verify identity"],
+    "dont": ["prove who you are", "confirm your ID", "ID check"],
+    "caution": ["KYC"],
+    "notes": "'KYC' (Know Your Customer) is acceptable in internal and compliance documentation but must never appear in member-facing UI."
+  },
+  {
+    "term": "Sign in",
+    "definition": "The action of accessing an account using credentials.",
+    "usage": "Use as the primary label for the authentication action and button.",
+    "context": ["Actions", "Account", "Navigation"],
+    "variants": ["sign in"],
+    "dont": ["login", "log in", "log on"],
+    "caution": [],
+    "notes": "Use 'sign in' as two words for the verb. 'Sign-in' (hyphenated) is acceptable as a modifier (e.g., 'sign-in page')."
+  },
+  {
+    "term": "Member",
+    "definition": "A person who holds an account with the product.",
+    "usage": "Use when referring to an individual account holder in member-facing and internal content.",
+    "context": ["Account", "Onboarding"],
+    "variants": ["members"],
+    "dont": ["user", "customer", "client"],
+    "caution": ["account holder"],
+    "notes": "'Account holder' is acceptable in legal and regulatory contexts. Avoid 'customer', which implies a transactional relationship."
+  },
+  {
+    "term": "Pending",
+    "definition": "A transaction that has been initiated but not yet fully processed.",
+    "usage": "Use as a status label for transactions that are in progress.",
+    "context": ["Feedback", "Account"],
+    "variants": [],
+    "dont": ["processing", "in progress", "on hold"],
+    "caution": ["submitted"],
+    "notes": "'Processing' may be used in real-time status messages during active flows, but 'Pending' is the correct label in transaction history."
+  },
+  {
+    "term": "Declined",
+    "definition": "A transaction or request that was rejected by the system, institution, or network.",
+    "usage": "Use as a status label when a transaction has not been approved.",
+    "context": ["Errors", "Feedback"],
+    "variants": [],
+    "dont": ["rejected", "failed", "denied"],
+    "caution": ["unsuccessful"],
+    "notes": "Avoid language that implies member fault unless clearly accurate. 'Declined' is neutral and standard in financial services."
+  },
+  {
+    "term": "Dispute",
+    "definition": "A formal challenge submitted by a member regarding an unauthorized or incorrect transaction.",
+    "usage": "Use when a member is initiating a formal review of a transaction they believe is incorrect or fraudulent.",
+    "context": ["Actions", "Account"],
+    "variants": ["disputes", "dispute a transaction"],
+    "dont": ["complain", "flag", "report a problem"],
+    "caution": ["report"],
+    "notes": "'Report' is acceptable for fraud-specific flows (e.g., 'report fraud'). For general transaction challenges, use 'dispute'."
+  },
+  {
+    "term": "Session expired",
+    "definition": "A system state indicating that a member's authenticated session has ended due to inactivity.",
+    "usage": "Use as the title or heading for timeout error messages. Follow with a clear sign-in prompt.",
+    "context": ["Errors", "System"],
+    "variants": [],
+    "dont": ["you've been logged out", "timeout", "session ended"],
+    "caution": ["signed out"],
+    "notes": "'You've been signed out' is acceptable as supporting body copy. Avoid 'logged out' to stay consistent with 'sign in' terminology."
+  },
+  {
+    "term": "Notification",
+    "definition": "An in-app or push message informing a member of account activity or a required action.",
+    "usage": "Use when referring to alerts delivered within the product or to a member's device.",
+    "context": ["Feedback", "Navigation", "Account"],
+    "variants": ["notifications"],
+    "dont": ["alert", "message", "ping"],
+    "caution": ["alert"],
+    "notes": "'Alert' is acceptable in high-urgency contexts such as fraud or security warnings."
+  },
+  {
+    "term": "Agreement",
+    "definition": "A legal document a member must accept before using a product feature or service.",
+    "usage": "Use when referring to terms, disclosures, or consent documents presented to members.",
+    "context": ["Legal", "Onboarding"],
+    "variants": ["agreements"],
+    "dont": ["contract", "fine print", "T&Cs"],
+    "caution": ["terms", "terms and conditions"],
+    "notes": "'Terms and conditions' is acceptable as a secondary label in legal contexts. Avoid 'T&Cs' in all member-facing copy."
+  },
+  {
+    "term": "Interest rate",
+    "definition": "The percentage at which interest is applied to a balance, loan, or savings account.",
+    "usage": "Use the full term in all member-facing contexts. Always pair with the rate type (e.g., 'variable interest rate', 'annual interest rate').",
+    "context": ["Account", "Marketing", "Legal"],
+    "variants": ["interest rates"],
+    "dont": ["rate", "APR", "yield"],
+    "caution": ["annual percentage rate"],
+    "notes": "'APR' (Annual Percentage Rate) must be used in legally required disclosures per regulatory requirements but should not appear in general UI copy."
+  },
+  {
+    "term": "Overdraft",
+    "definition": "A condition in which a withdrawal or payment exceeds the available account balance.",
+    "usage": "Use when describing the account state or associated protection features.",
+    "context": ["Account", "Errors", "Legal"],
+    "variants": ["overdrafts", "overdrawn"],
+    "dont": ["negative balance", "going below zero", "in the red"],
+    "caution": ["overdraft protection"],
+    "notes": "'Overdraft protection' is a specific product feature name — use exactly if referring to that feature. 'Overdrawn' is acceptable as an adjective (e.g., 'your account is overdrawn')."
+  }
+]

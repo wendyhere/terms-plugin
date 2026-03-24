@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Terminology</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+      font-size: 12px;
+      color: #1a1a1a;
+      background: #fff;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── List view ── */
+    #list-view { display: flex; flex-direction: column; height: 100%; }
+
+    .search-wrap {
+      padding: 10px 12px;
+      border-bottom: 1px solid #e6e6e6;
+      flex-shrink: 0;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      padding: 7px 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 12px;
+      background: #f5f5f5;
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .search-wrap input:focus {
+      border-color: #0d99ff;
+      background: #fff;
+    }
+
+    .results-meta {
+      padding: 6px 12px;
+      font-size: 11px;
+      color: #999;
+      border-bottom: 1px solid #f0f0f0;
+      flex-shrink: 0;
+    }
+
+    #term-list { overflow-y: auto; flex: 1; }
+
+    .term-item {
+      padding: 10px 12px;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      transition: background 0.1s;
+    }
+
+    .term-item:hover { background: #f7f7f7; }
+
+    .term-name { font-weight: 600; font-size: 12px; color: #1a1a1a; }
+
+    .term-preview {
+      font-size: 11px;
+      color: #999;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .empty {
+      padding: 32px 12px;
+      text-align: center;
+      color: #aaa;
+      font-size: 12px;
+    }
+
+    /* ── Detail view ── */
+    #detail-view { display: flex; flex-direction: column; height: 100%; }
+
+    .detail-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-bottom: 1px solid #e6e6e6;
+      flex-shrink: 0;
+    }
+
+    #back-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 11px;
+      color: #0d99ff;
+      padding: 0;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    #back-btn:hover { text-decoration: underline; }
+
+    .detail-term-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1a1a1a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .detail-body {
+      overflow-y: auto;
+      flex: 1;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .detail-section { display: flex; flex-direction: column; gap: 4px; }
+
+    .detail-section label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #aaa;
+    }
+
+    .detail-section p {
+      font-size: 12px;
+      color: #1a1a1a;
+      line-height: 1.55;
+    }
+
+    /* Tags */
+    .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .tag-context  { background: #e8f4ff; color: #0d84d8; }
+    .tag-dont     { background: #fff1f0; color: #cf1322; text-decoration: line-through; }
+    .tag-caution  { background: #fff7e6; color: #d46b08; }
+    .tag-variant  { background: #f0f0f0; color: #555; }
+
+    /* Actions */
+    .detail-actions {
+      display: flex;
+      gap: 8px;
+      padding: 10px 12px;
+      border-top: 1px solid #e6e6e6;
+      flex-shrink: 0;
+    }
+
+    .detail-actions button {
+      flex: 1;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid #e0e0e0;
+      background: #fff;
+      color: #1a1a1a;
+      transition: opacity 0.15s;
+    }
+
+    .detail-actions button:hover { opacity: 0.8; }
+
+    #insert-btn {
+      background: #0d99ff;
+      color: #fff;
+      border-color: #0d99ff;
+    }
+
+    #insert-btn.error { background: #ff4d4f; border-color: #ff4d4f; }
+    #insert-btn.success, #copy-btn.success { opacity: 0.7; }
+  </style>
+</head>
+<body>
+
+  <!-- ── List view ── -->
+  <div id="list-view">
+    <div class="search-wrap">
+      <input id="search" type="text" placeholder="Search terms…" autocomplete="off" spellcheck="false" />
+    </div>
+    <div class="results-meta" id="results-meta"></div>
+    <div id="term-list"></div>
+  </div>
+
+  <!-- ── Detail view ── -->
+  <div id="detail-view" style="display:none">
+    <div class="detail-header">
+      <button id="back-btn">← Back</button>
+      <span class="detail-term-name" id="detail-term"></span>
+    </div>
+
+    <div class="detail-body">
+      <div class="detail-section" id="section-definition">
+        <label>Definition</label>
+        <p id="detail-definition"></p>
+      </div>
+
+      <div class="detail-section" id="section-usage">
+        <label>Usage</label>
+        <p id="detail-usage"></p>
+      </div>
+
+      <div class="detail-section" id="section-context">
+        <label>Context</label>
+        <div class="tags" id="detail-context"></div>
+      </div>
+
+      <div class="detail-section" id="section-variants">
+        <label>Variants</label>
+        <div class="tags" id="detail-variants"></div>
+      </div>
+
+      <div class="detail-section" id="section-dont">
+        <label>Don't use</label>
+        <div class="tags" id="detail-dont"></div>
+      </div>
+
+      <div class="detail-section" id="section-caution">
+        <label>Use with caution</label>
+        <div class="tags" id="detail-caution"></div>
+      </div>
+
+      <div class="detail-section" id="section-notes">
+        <label>Notes</label>
+        <p id="detail-notes"></p>
+      </div>
+    </div>
+
+    <div class="detail-actions">
+      <button id="copy-btn">Copy term</button>
+      <button id="insert-btn">Insert into selection</button>
+    </div>
+  </div>
+
+</body>
+</html>
