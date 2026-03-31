@@ -14,6 +14,7 @@ module.exports = (env, argv) => ({
   module: {
     rules: [
       { test: /\.tsx?$/, use: 'ts-loader', exclude: /node_modules/ },
+      { test: /\.md$/, type: 'asset/source' },
     ],
   },
 

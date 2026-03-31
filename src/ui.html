@@ -17,9 +17,45 @@
       flex-direction: column;
     }
 
-    /* ── List view ── */
-    #list-view { display: flex; flex-direction: column; height: 100%; }
+    /* ── Tab bar ── */
+    #tab-bar {
+      display: flex;
+      border-bottom: 1px solid #e6e6e6;
+      flex-shrink: 0;
+    }
 
+    .tab {
+      flex: 1;
+      height: 36px;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 500;
+      color: #888;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .tab:hover { color: #1a1a1a; }
+
+    .tab.active {
+      color: #0d99ff;
+      border-bottom-color: #0d99ff;
+      font-weight: 600;
+    }
+
+    /* ── Panels ── */
+    .panel {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .panel.active { display: flex; }
+
+    /* ── Search ── */
     .search-wrap {
       padding: 10px 12px;
       border-bottom: 1px solid #e6e6e6;
@@ -50,9 +86,10 @@
       flex-shrink: 0;
     }
 
-    #term-list { overflow-y: auto; flex: 1; }
+    /* ── List ── */
+    .list-scroll { overflow-y: auto; flex: 1; }
 
-    .term-item {
+    .list-item {
       padding: 10px 12px;
       border-bottom: 1px solid #f0f0f0;
       cursor: pointer;
@@ -62,11 +99,11 @@
       transition: background 0.1s;
     }
 
-    .term-item:hover { background: #f7f7f7; }
+    .list-item:hover { background: #f7f7f7; }
 
-    .term-name { font-weight: 600; font-size: 12px; color: #1a1a1a; }
+    .item-name { font-weight: 600; font-size: 12px; color: #1a1a1a; }
 
-    .term-preview {
+    .item-preview {
       font-size: 11px;
       color: #999;
       white-space: nowrap;
@@ -82,7 +119,14 @@
     }
 
     /* ── Detail view ── */
-    #detail-view { display: flex; flex-direction: column; height: 100%; }
+    .detail-view {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .detail-view.visible { display: flex; }
 
     .detail-header {
       display: flex;
@@ -93,7 +137,7 @@
       flex-shrink: 0;
     }
 
-    #back-btn {
+    .back-btn {
       background: none;
       border: none;
       cursor: pointer;
@@ -104,10 +148,10 @@
       flex-shrink: 0;
     }
 
-    #back-btn:hover { text-decoration: underline; }
+    .back-btn:hover { text-decoration: underline; }
 
-    .detail-term-name {
-      font-size: 14px;
+    .detail-title {
+      font-size: 13px;
       font-weight: 700;
       color: #1a1a1a;
       white-space: nowrap;
@@ -140,7 +184,16 @@
       line-height: 1.55;
     }
 
-    /* Tags */
+    .detail-section ul {
+      font-size: 12px;
+      color: #1a1a1a;
+      line-height: 1.55;
+      padding-left: 14px;
+    }
+
+    .detail-section li { margin-bottom: 2px; }
+
+    /* ── Tags ── */
     .tags { display: flex; flex-wrap: wrap; gap: 4px; }
 
     .tag {
@@ -151,12 +204,13 @@
       font-weight: 500;
     }
 
-    .tag-context  { background: #e8f4ff; color: #0d84d8; }
-    .tag-dont     { background: #fff1f0; color: #cf1322; text-decoration: line-through; }
-    .tag-caution  { background: #fff7e6; color: #d46b08; }
-    .tag-variant  { background: #f0f0f0; color: #555; }
+    .tag-context { background: #e8f4ff; color: #0d84d8; }
+    .tag-dont    { background: #fff1f0; color: #cf1322; text-decoration: line-through; }
+    .tag-caution { background: #fff7e6; color: #d46b08; }
+    .tag-variant { background: #f0f0f0; color: #555; }
+    .tag-tone    { background: #f0f0f0; color: #555; }
 
-    /* Actions */
+    /* ── Term actions ── */
     .detail-actions {
       display: flex;
       gap: 8px;
@@ -180,75 +234,428 @@
 
     .detail-actions button:hover { opacity: 0.8; }
 
-    #insert-btn {
-      background: #0d99ff;
-      color: #fff;
-      border-color: #0d99ff;
-    }
-
+    #insert-btn { background: #0d99ff; color: #fff; border-color: #0d99ff; }
     #insert-btn.error { background: #ff4d4f; border-color: #ff4d4f; }
     #insert-btn.success, #copy-btn.success { opacity: 0.7; }
+
+    /* ── Components ── */
+    .example-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+      margin-top: 6px;
+    }
+
+    .example-label.good  { color: #389e0d; }
+    .example-label.bad   { color: #cf1322; }
+    .example-label.state { color: #888; }
+
+    .example-block {
+      background: #f7f7f7;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 11px;
+      color: #1a1a1a;
+      line-height: 1.5;
+      margin-bottom: 4px;
+    }
+
+    .kv-list { display: flex; flex-direction: column; gap: 3px; }
+
+    .kv-row { display: flex; gap: 8px; font-size: 11px; }
+    .kv-key { color: #888; min-width: 90px; flex-shrink: 0; }
+    .kv-val { color: #1a1a1a; }
+
+    /* ── Style guide ── */
+    .prose {
+      overflow-y: auto;
+      flex: 1;
+      padding: 14px 12px;
+    }
+
+    .prose h2 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-top: 16px;
+      margin-bottom: 6px;
+    }
+
+    .prose h2:first-child { margin-top: 0; }
+
+    .prose h3 {
+      font-size: 12px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-top: 12px;
+      margin-bottom: 4px;
+    }
+
+    .prose h4 {
+      font-size: 11px;
+      font-weight: 600;
+      color: #555;
+      margin-top: 10px;
+      margin-bottom: 4px;
+    }
+
+    .prose p {
+      font-size: 12px;
+      color: #333;
+      line-height: 1.55;
+      margin-bottom: 4px;
+    }
+
+    .prose ul, .prose ol {
+      padding-left: 14px;
+      margin-bottom: 4px;
+    }
+
+    .prose li {
+      font-size: 12px;
+      color: #333;
+      line-height: 1.5;
+      margin-bottom: 2px;
+    }
+
+    .prose hr {
+      border: none;
+      border-top: 1px solid #e6e6e6;
+      margin: 12px 0;
+    }
+
+    /* ── Checklist ── */
+    .checklist-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-bottom: 1px solid #e6e6e6;
+      flex-shrink: 0;
+    }
+
+    #checklist-progress { font-size: 11px; color: #888; }
+
+    #reset-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 11px;
+      color: #0d99ff;
+      padding: 0;
+    }
+
+    #reset-btn:hover { text-decoration: underline; }
+
+    .checklist-scroll { overflow-y: auto; flex: 1; padding: 12px; }
+
+    .check-group { margin-bottom: 16px; }
+
+    .check-group-title {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #aaa;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .check-group-title.complete { color: #52c41a; }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 5px 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .check-item:last-child { border-bottom: none; }
+
+    .check-item input[type="checkbox"] {
+      flex-shrink: 0;
+      width: 14px;
+      height: 14px;
+      margin-top: 1px;
+      cursor: pointer;
+      accent-color: #0d99ff;
+    }
+
+    .check-item label {
+      font-size: 12px;
+      color: #1a1a1a;
+      line-height: 1.45;
+      cursor: pointer;
+    }
+
+    .check-item.checked label { color: #aaa; text-decoration: line-through; }
+
+    .priority-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .dot-high   { background: #ff4d4f; }
+    .dot-medium { background: #fa8c16; }
+    .dot-low    { background: #aaa; }
+
+    /* ── Text preview ── */
+    #text-preview {
+      flex-shrink: 0;
+      max-height: 140px;
+      overflow-y: auto;
+      border-bottom: 1px solid #e6e6e6;
+      background: #fafafa;
+    }
+
+    .text-preview-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 12px;
+      position: sticky;
+      top: 0;
+      background: #fafafa;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    #text-preview-title {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #aaa;
+    }
+
+    #clear-preview-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 11px;
+      color: #0d99ff;
+      padding: 0;
+    }
+
+    #clear-preview-btn:hover { text-decoration: underline; }
+
+    #text-preview-content { padding: 8px 12px; }
+
+    .preview-frame + .preview-frame { margin-top: 10px; }
+
+    .preview-frame-name {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #bbb;
+      margin-bottom: 4px;
+    }
+
+    .preview-text-item {
+      font-size: 11px;
+      color: #333;
+      line-height: 1.5;
+      padding: 2px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .preview-text-item:last-child { border-bottom: none; }
+
+    #pull-btn, #check-terms-btn {
+      background: none;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 11px;
+      color: #1a1a1a;
+      padding: 3px 8px;
+    }
+
+    #pull-btn:hover, #check-terms-btn:hover { background: #f5f5f5; }
+
+    /* ── Terms results ── */
+    #terms-results {
+      flex-shrink: 0;
+      max-height: 160px;
+      overflow-y: auto;
+      border-bottom: 1px solid #e6e6e6;
+      background: #fafafa;
+    }
+
+    #terms-results-content { padding: 8px 12px; }
+
+    .results-group + .results-group { margin-top: 10px; }
+
+    .results-group-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .results-group-label.violation { color: #cf1322; }
+    .results-group-label.caution   { color: #d46b08; }
+    .results-group-label.correct   { color: #389e0d; }
+
+    .results-item {
+      font-size: 11px;
+      color: #333;
+      line-height: 1.5;
+      padding: 2px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .results-item:last-child { border-bottom: none; }
+
+    .results-item .arrow { color: #aaa; margin: 0 4px; }
+    .results-item .correct-word { color: #389e0d; font-weight: 600; }
+    .results-item .wrong-word   { text-decoration: line-through; color: #cf1322; }
+    .results-item .caution-word { color: #d46b08; }
+
+    #clear-results-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 11px;
+      color: #0d99ff;
+      padding: 0;
+    }
+
+    #clear-results-btn:hover { text-decoration: underline; }
+
+    .show-btn {
+      float: right;
+      font-size: 10px;
+      background: none;
+      border: 1px solid #e0e0e0;
+      border-radius: 3px;
+      cursor: pointer;
+      padding: 1px 6px;
+      color: #0d99ff;
+    }
+
+    .show-btn:hover { background: #f0f7ff; }
   </style>
 </head>
 <body>
 
-  <!-- ── List view ── -->
-  <div id="list-view">
-    <div class="search-wrap">
-      <input id="search" type="text" placeholder="Search terms…" autocomplete="off" spellcheck="false" />
+  <!-- Tab bar -->
+  <nav id="tab-bar">
+    <button class="tab active" data-tab="terms">Terms</button>
+    <button class="tab" data-tab="components">Components</button>
+    <button class="tab" data-tab="style">Style</button>
+    <button class="tab" data-tab="checklist">Checklist</button>
+  </nav>
+
+  <!-- Terms panel -->
+  <div id="panel-terms" class="panel active">
+    <div id="terms-list-view" style="display:flex; flex-direction:column; flex:1; overflow:hidden;">
+      <div class="search-wrap">
+        <input id="search" type="text" placeholder="Search terms…" autocomplete="off" spellcheck="false" />
+      </div>
+      <div class="results-meta" id="results-meta"></div>
+      <div id="term-list" class="list-scroll"></div>
     </div>
-    <div class="results-meta" id="results-meta"></div>
-    <div id="term-list"></div>
+
+    <div id="terms-detail-view" class="detail-view">
+      <div class="detail-header">
+        <button class="back-btn" id="terms-back-btn">← Back</button>
+        <span class="detail-title" id="detail-term"></span>
+      </div>
+      <div class="detail-body">
+        <div class="detail-section" id="section-definition">
+          <label>Definition</label>
+          <p id="detail-definition"></p>
+        </div>
+        <div class="detail-section" id="section-usage">
+          <label>Usage</label>
+          <p id="detail-usage"></p>
+        </div>
+        <div class="detail-section" id="section-context">
+          <label>Context</label>
+          <div class="tags" id="detail-context"></div>
+        </div>
+        <div class="detail-section" id="section-variants">
+          <label>Variants</label>
+          <div class="tags" id="detail-variants"></div>
+        </div>
+        <div class="detail-section" id="section-dont">
+          <label>Don't use</label>
+          <div class="tags" id="detail-dont"></div>
+        </div>
+        <div class="detail-section" id="section-caution">
+          <label>Use with caution</label>
+          <div class="tags" id="detail-caution"></div>
+        </div>
+        <div class="detail-section" id="section-notes">
+          <label>Notes</label>
+          <p id="detail-notes"></p>
+        </div>
+      </div>
+      <div class="detail-actions">
+        <button id="copy-btn">Copy term</button>
+        <button id="insert-btn">Insert into selection</button>
+      </div>
+    </div>
   </div>
 
-  <!-- ── Detail view ── -->
-  <div id="detail-view" style="display:none">
-    <div class="detail-header">
-      <button id="back-btn">← Back</button>
-      <span class="detail-term-name" id="detail-term"></span>
+  <!-- Components panel -->
+  <div id="panel-components" class="panel">
+    <div id="comp-list-view" style="display:flex; flex-direction:column; flex:1; overflow:hidden;">
+      <div id="component-list" class="list-scroll"></div>
     </div>
-
-    <div class="detail-body">
-      <div class="detail-section" id="section-definition">
-        <label>Definition</label>
-        <p id="detail-definition"></p>
+    <div id="comp-detail-view" class="detail-view">
+      <div class="detail-header">
+        <button class="back-btn" id="comp-back-btn">← Back</button>
+        <span class="detail-title" id="comp-detail-title"></span>
       </div>
+      <div class="detail-body" id="comp-detail-body"></div>
+    </div>
+  </div>
 
-      <div class="detail-section" id="section-usage">
-        <label>Usage</label>
-        <p id="detail-usage"></p>
-      </div>
+  <!-- Style guide panel -->
+  <div id="panel-style" class="panel">
+    <div class="prose" id="style-content"></div>
+  </div>
 
-      <div class="detail-section" id="section-context">
-        <label>Context</label>
-        <div class="tags" id="detail-context"></div>
-      </div>
-
-      <div class="detail-section" id="section-variants">
-        <label>Variants</label>
-        <div class="tags" id="detail-variants"></div>
-      </div>
-
-      <div class="detail-section" id="section-dont">
-        <label>Don't use</label>
-        <div class="tags" id="detail-dont"></div>
-      </div>
-
-      <div class="detail-section" id="section-caution">
-        <label>Use with caution</label>
-        <div class="tags" id="detail-caution"></div>
-      </div>
-
-      <div class="detail-section" id="section-notes">
-        <label>Notes</label>
-        <p id="detail-notes"></p>
+  <!-- Checklist panel -->
+  <div id="panel-checklist" class="panel">
+    <div class="checklist-header">
+      <span id="checklist-progress"></span>
+      <div style="display:flex; gap:8px;">
+        <button id="pull-btn">Pull from selection</button>
+        <button id="reset-btn">Reset</button>
       </div>
     </div>
-
-    <div class="detail-actions">
-      <button id="copy-btn">Copy term</button>
-      <button id="insert-btn">Insert into selection</button>
+    <div id="text-preview" style="display:none;">
+      <div class="text-preview-label">
+        <span id="text-preview-title">Selected text</span>
+        <div style="display:flex; gap:8px;">
+          <button id="check-terms-btn">Check terms</button>
+          <button id="clear-preview-btn">Clear</button>
+        </div>
+      </div>
+      <div id="text-preview-content"></div>
     </div>
+    <div id="terms-results" style="display:none;">
+      <div class="text-preview-label">
+        <span id="text-preview-title">Terms check</span>
+        <button id="clear-results-btn">Clear</button>
+      </div>
+      <div id="terms-results-content"></div>
+    </div>
+    <div class="checklist-scroll" id="checklist-content"></div>
   </div>
 
 </body>

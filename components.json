@@ -1,0 +1,423 @@
+﻿{
+
+
+  "global_rules": {
+    "priorities": [
+      "clarity",
+      "accuracy",
+      "actionability",
+      "brevity",
+      "tone"
+    ],
+    "never": [
+      "Use humor in financial or error contexts",
+      "Use exclamation points in system messages",
+      "Use vague phrases like 'something went wrong' or 'oops'",
+      "Blame the user",
+      "Use promotional or marketing language in product flows"
+    ]
+  },
+
+
+  "components": [
+
+
+    {
+      "name": "onboarding_screen",
+
+
+      "inputs": [
+        "feature",
+        "user_goal",
+        "step_optional"
+      ],
+
+
+      "outputs": [
+        "headline",
+        "body",
+        "primary_cta"
+      ],
+
+
+      "constraints": {
+        "headline_max_words": 8,
+        "body_max_sentences": 2,
+        "cta_max_words": 4
+      },
+
+
+      "tone": ["clear", "reassuring", "supportive"],
+
+
+      "generation_rules": [
+        "Headline describes what the user can do",
+        "Body explains benefit in plain language",
+        "Avoid jargon and internal terminology",
+        "CTA reflects the next step"
+      ],
+
+
+      "rewrite_rules": [
+        "Simplify language",
+        "Remove jargon",
+        "Clarify benefit",
+        "Reduce length"
+      ],
+
+
+      "examples": {
+        "good": [
+          {
+            "headline": "Move money with confidence",
+            "body": "Transfer funds securely between your accounts.",
+            "primary_cta": "Get started"
+          }
+        ],
+        "bad": [
+          {
+            "headline": "Welcome to next-gen banking",
+            "body": "We leverage cutting-edge financial infrastructure."
+          }
+        ]
+      }
+    },
+
+
+    {
+      "name": "form_field",
+
+
+      "inputs": [
+        "field_name",
+        "format_optional",
+        "error_context_optional"
+      ],
+
+
+      "outputs": [
+        "label",
+        "helper_text_optional",
+        "error_message"
+      ],
+
+
+      "constraints": {
+        "label_max_words": 4,
+        "error_max_sentences": 1
+      },
+
+
+      "tone": ["clear", "neutral"],
+
+
+      "generation_rules": [
+        "Label must be concise and descriptive",
+        "Helper text explains format when needed",
+        "Error message must be specific and actionable",
+        "Do not blame the user"
+      ],
+
+
+      "rewrite_rules": [
+        "Shorten label",
+        "Clarify format instructions",
+        "Replace vague errors with specific guidance"
+      ],
+
+
+      "examples": {
+        "good": [
+          {
+            "label": "Routing number",
+            "helper_text": "Enter the 9-digit number from your check",
+            "error_message": "Enter a valid 9-digit routing number"
+          }
+        ],
+        "bad": [
+          {
+            "label": "Enter routing number",
+            "error_message": "Invalid input"
+          }
+        ]
+      }
+    },
+
+
+    {
+      "name": "error_message",
+
+
+      "inputs": [
+        "failed_action",
+        "reason_optional",
+        "next_step"
+      ],
+
+
+      "outputs": [
+        "message"
+      ],
+
+
+      "constraints": {
+        "max_sentences": 2
+      },
+
+
+      "tone": ["calm", "supportive", "clear"],
+
+
+      "structure": [
+        "what_happened",
+        "next_step"
+      ],
+
+
+      "generation_rules": [
+        "Start with what happened",
+        "Include next step",
+        "Avoid blame",
+        "Avoid humor",
+        "Avoid vague phrases"
+      ],
+
+
+      "rewrite_rules": [
+        "Replace vague phrasing",
+        "Add clear next step",
+        "Reduce to 2 sentences or fewer"
+      ],
+
+
+      "examples": {
+        "good": [
+          "We couldn’t process your payment. Check your card details or try another method."
+        ],
+        "bad": [
+          "Oops! Something went wrong!"
+        ]
+      }
+    },
+
+
+    {
+      "name": "empty_state",
+
+
+      "inputs": [
+        "context",
+        "reason_optional",
+        "next_step_optional"
+      ],
+
+
+      "outputs": [
+        "message"
+      ],
+
+
+      "constraints": {
+        "max_sentences": 2
+      },
+
+
+      "tone": ["neutral", "helpful", "reassuring"],
+
+
+      "generation_rules": [
+        "Explain why content is empty",
+        "Reassure user when appropriate",
+        "Provide next step if available",
+        "Do not sound like an error"
+      ],
+
+
+      "rewrite_rules": [
+        "Clarify context",
+        "Add helpful guidance",
+        "Remove negative tone"
+      ],
+
+
+      "examples": {
+        "good": [
+          "You don’t have any transactions yet.",
+          "No transactions match your filters. Adjust your filters to see more results."
+        ]
+      }
+    },
+
+
+    {
+      "name": "success_message",
+
+
+      "inputs": [
+        "completed_action"
+      ],
+
+
+      "outputs": [
+        "message"
+      ],
+
+
+      "constraints": {
+        "max_sentences": 1
+      },
+
+
+      "tone": ["positive", "measured"],
+
+
+      "generation_rules": [
+        "Clearly confirm the outcome",
+        "Keep concise",
+        "Do not use exclamation points"
+      ],
+
+
+      "rewrite_rules": [
+        "Remove unnecessary enthusiasm",
+        "Clarify outcome",
+        "Shorten phrasing"
+      ],
+
+
+      "examples": {
+        "good": [
+          "Your transfer is complete.",
+          "Your account has been updated."
+        ],
+        "bad": [
+          "Success! Everything worked perfectly!"
+        ]
+      }
+    },
+
+
+    {
+      "name": "confirmation_dialog",
+
+
+      "inputs": [
+        "action",
+        "impact",
+        "is_irreversible"
+      ],
+
+
+      "outputs": [
+        "title",
+        "body",
+        "primary_cta",
+        "secondary_cta"
+      ],
+
+
+      "constraints": {
+        "title_max_words": 6,
+        "body_max_sentences": 2
+      },
+
+
+      "tone": ["clear", "cautious"],
+
+
+      "generation_rules": [
+        "Title clearly states the action",
+        "Body explains impact",
+        "Highlight if irreversible",
+        "CTAs must be explicit and action-based"
+      ],
+
+
+      "rewrite_rules": [
+        "Clarify consequences",
+        "Remove ambiguity",
+        "Make CTAs specific"
+      ],
+
+
+      "examples": {
+        "good": [
+          {
+            "title": "Cancel transfer?",
+            "body": "This action can’t be undone.",
+            "primary_cta": "Cancel transfer",
+            "secondary_cta": "Keep transfer"
+          }
+        ]
+      }
+    },
+
+
+    {
+      "name": "banner",
+
+
+      "inputs": [
+        "message_context",
+        "state",
+        "next_step_optional"
+      ],
+
+
+      "outputs": [
+        "message",
+        "cta_optional"
+      ],
+
+
+      "states": {
+        "info": {
+          "tone": ["neutral", "informative"]
+        },
+        "success": {
+          "tone": ["positive", "measured"]
+        },
+        "warning": {
+          "tone": ["clear", "cautious"]
+        },
+        "error": {
+          "tone": ["calm", "supportive"]
+        }
+      },
+
+
+      "constraints": {
+        "max_sentences": 2
+      },
+
+
+      "generation_rules": [
+        "Match tone to state",
+        "Keep message concise",
+        "Provide next step when relevant"
+      ],
+
+
+      "rewrite_rules": [
+        "Align tone to state",
+        "Clarify message",
+        "Reduce length"
+      ],
+
+
+      "examples": {
+        "success": [
+          "Your transfer is complete."
+        ],
+        "warning": [
+          "Your balance is low. Add funds to avoid overdraft."
+        ],
+        "error": [
+          "We couldn’t complete your transfer. Try again."
+        ]
+      }
+    }
+
+
+  ]
+}
