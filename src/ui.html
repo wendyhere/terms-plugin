@@ -326,6 +326,13 @@
       margin: 12px 0;
     }
 
+    mark {
+      background: #fff3cd;
+      color: inherit;
+      border-radius: 2px;
+      padding: 0 1px;
+    }
+
     /* ── Checklist ── */
     .checklist-header {
       display: flex;
@@ -626,6 +633,10 @@
 
   <!-- Style guide panel -->
   <div id="panel-style" class="panel">
+    <div class="search-wrap">
+      <input id="style-search" type="text" placeholder="Search style guide…" autocomplete="off" spellcheck="false" />
+    </div>
+    <div class="results-meta" id="style-results-meta"></div>
     <div class="prose" id="style-content"></div>
   </div>
 

@@ -355,8 +355,68 @@ compBackBtn.addEventListener('click', () => {
 
 // ── Style guide tab ───────────────────────────────────────────────────────
 
+let originalStyleHtml = ''
+
 function renderStyleGuide() {
-  document.getElementById('style-content')!.innerHTML = renderMarkdown(styleGuideContent)
+  originalStyleHtml = renderMarkdown(styleGuideContent)
+  styleContent.innerHTML = originalStyleHtml
+}
+
+// ── Style guide search ────────────────────────────────────────────────────
+
+const styleSearch  = document.getElementById('style-search') as HTMLInputElement
+const styleMeta    = document.getElementById('style-results-meta') as HTMLElement
+const styleContent = document.getElementById('style-content') as HTMLElement
+
+styleSearch.addEventListener('input', () => {
+  const query = styleSearch.value.trim()
+  styleContent.innerHTML = originalStyleHtml
+
+  if (!query) {
+    styleMeta.textContent = ''
+    return
+  }
+
+  highlightTextNodes(styleContent, query)
+
+  const count = styleContent.querySelectorAll('mark').length
+  styleMeta.textContent = count > 0 ? `${count} match${count === 1 ? '' : 'es'}` : 'No matches'
+  styleContent.querySelector('mark')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+})
+
+function highlightTextNodes(container: HTMLElement, query: string) {
+  const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT)
+  const textNodes: Text[] = []
+  let node: Node | null
+  while ((node = walker.nextNode())) textNodes.push(node as Text)
+
+  const regex = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi')
+
+  textNodes.forEach(textNode => {
+    const text = textNode.textContent || ''
+    if (!regex.test(text)) { regex.lastIndex = 0; return }
+    regex.lastIndex = 0
+
+    const fragment = document.createDocumentFragment()
+    let lastIndex = 0
+    let match: RegExpExecArray | null
+
+    while ((match = regex.exec(text)) !== null) {
+      if (match.index > lastIndex) {
+        fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)))
+      }
+      const mark = document.createElement('mark')
+      mark.textContent = match[0]
+      fragment.appendChild(mark)
+      lastIndex = regex.lastIndex
+    }
+
+    if (lastIndex < text.length) {
+      fragment.appendChild(document.createTextNode(text.slice(lastIndex)))
+    }
+
+    textNode.parentNode?.replaceChild(fragment, textNode)
+  })
 }
 
 function renderMarkdown(md: string): string {
